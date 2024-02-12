@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel='stylesheet' type='text/css' media='screen' href='customers.css'>
+</head>
+<body>
+    <nav class="shadow">
+        <div class="logo">
+            <p><a href="index.html">NavBar</a></p>
+        </div>
+        <ul>
+            <li><a href="customers.html">Accounts</a></li>
+            <li><a href="#transferfund">Transfer fund</a></li>
+            <li><a href="history.html">transaction</a></li>
+        </ul>
+    </nav>
+    
+    <div class="red">
+    <table id = "table" class="table table-striped table-bordered" style="text-align: center;">
+        <thead>
+            <tr>
+                <th scope="col">Serial Number</th>
+                <th scope="col">Name</th>
+                <th scope="col">Account Number</th>
+                <th scope="col">Balance</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Mark</td>
+                <td>2345678902</td>
+                <td id="Mark">1200</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Jacob</td>
+                <td>3456789012</td>
+                <td id="Jacob">2000</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>rahul</td>
+                <td>1234567890</td>
+                <td id="rahul">3456</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>raju</td>
+                <td>4567890123</td>
+                <td id="raju">5463</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>rajesh</td>
+                <td>5678901234</td>
+                <td id="rajesh">6783</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>ramu</td>
+                <td>6789012345</td>
+                <td id="ramu">4123</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>jyothi</td>
+                <td>7890123456</td>
+                <td id="jyothi">9087</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>anu</td>
+                <td>8901234567</td>
+                <td id="anu">1357</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>greeshma</td>
+                <td>9012345678</td>
+                <td id="greeshma">2345</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>niha</td>
+                <td>1728937558</td>
+                <td id="niha">9872</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    
+    <div class="box" id="transferfund">
+        <div class="contact" style="color: white;">
+            <h2>Transfer Money</h2>
+            <form action="" method="post" name="sample">
+    
+                <select class="form-select form-select-lg mb-3" id="sender" aria-label="Large select example" style="background-color: black;">
+                    <option selected>Mark</option>
+                    <option value="Mark">Mark</option>
+                    <option value="Jacob">jacob</option>
+                    <option value="rahul">rahul</option>
+                    <option value="raju">raju</option>
+                    <option value="rajesh">rajesh</option>
+                    <option value="ramu">ramu</option>
+                    <option value="jyothi">jyothi</option>
+                    <option value="anu">anu</option>
+                    <option value="greeshma">greeshma</option>
+                    <option value="niha">niha</option>
+                </select>
+                <select class="form-select form-select-lg mb-3" id="reciever" aria-label="Large select example" style="background-color: black;">
+                    <option selected>Mark</option>
+                    <option value="Mark">Mark</option>
+                    <option value="Jacob">jacob</option>
+                    <option value="rahul">rahul</option>
+                    <option value="raju">raju</option>
+                    <option value="rajesh">rajesh</option>
+                    <option value="ramu">ramu</option>
+                    <option value="jyothi">jyothi</option>
+                    <option value="anu">anu</option>
+                    <option value="greeshma">greeshma</option>
+                    <option value="niha">niha</option>
+                </select>
+                <input type="text" id="amount" placeholder="amount" style="background-color: black;">
+    
+                <button type="button" class="btn btn-info" onclick="saveData(); update();">Transfer</button>
+            </form>
+        </div>
+    </div>
+    <script src='main.js'></script>
+
+    <script>
+        function saveData() {
+    // Get sender, receiver, and amount values
+    var sender = document.getElementById("sender").value;
+    var receiver = document.getElementById("reciever").value;
+    var amount = parseFloat(document.getElementById("amount").value);
+
+    // Validate if the amount is a valid number
+    if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid positive amount for transfer.");
+        return;
+    }
+
+    // Find sender and receiver elements in the table
+    var senderElement = document.getElementById(sender);
+    var receiverElement = document.getElementById(receiver);
+
+    // Get current balances of sender and receiver
+    var senderBalance = parseFloat(senderElement.textContent);
+    var receiverBalance = parseFloat(receiverElement.textContent);
+
+    // Check if the sender has sufficient balance
+    if (senderBalance < amount) {
+        alert("Insufficient balance for the transfer.");
+        return;
+    }
+
+    // Update balances
+    senderBalance -= amount;
+    receiverBalance += amount;
+
+    // Update the table with new balances
+    senderElement.textContent = senderBalance.toFixed(2);
+    receiverElement.textContent = receiverBalance.toFixed(2);
+
+    // Display a success message (you may customize this part)
+    alert("Transfer successful!\n" + sender + " sent $" + amount.toFixed(2) + " to " + receiver);
+}
+
+    </script>
+</body>
+</html>
